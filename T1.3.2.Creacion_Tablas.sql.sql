@@ -55,13 +55,13 @@ CREATE TABLE `CANAL` (
   PRIMARY KEY (`CdCanal`)
 );
 
-CREATE TABLE `TIPO DOCUMENTO` (
+CREATE TABLE `TIPO_DOCUMENTO` (
   `CdTipoDocIdCliente` Nvarchar(2),
   `NombreDocumento` Nvarchar(20),
   PRIMARY KEY (`CdTipoDocIdCliente`)
 );
 
-CREATE TABLE `ENTIDAD` (
+CREATE TABLE `CLIENTE` (
   `IdCliente` Int,
   `NumeroDocIdCliente` Nvarchar(18),
   `CdTipoDocIdCliente` Nvarchar(2),
