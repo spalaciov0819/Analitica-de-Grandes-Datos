@@ -1,86 +1,88 @@
-CREATE TABLE `VENTA` (
-  `IdTransaccion` Int,
-  `FechaTransaccion` Date,
-  `HoraTransaccion` Int,
-  `CdRegistradora` Int,
-  `ConsecTransaccionPOS` Int,
-  `IdCliente` Int,
-  `CdDependencia` Int,
-  `IdPLU` Int,
-  `NroUnidades` Int,
-  `VlrCostoTotal` Int,
-  `VlrVentasConImpuestos` Int,
-  `VlrVentasSinImpuestos` Int,
-  `VlrIVA` Int,
-  `VlrImpoconsumo` Int,
-  `CdCanal` Int,
-  `ConsecutivoFiscal` Nvarchar(20),
-  PRIMARY KEY (`IdTransaccion`)
-);
+CREATE TABLE `venta` (
+  `IdTransaccion` INT,
+  `FechaTransaccion` DATE,
+  `HoraTransaccion` INT,
+  `CdRegistradora` INT,
+  `ConsecTransaccionPOS` INT,
+  `IdCliente` INT,
+  `CdDependencia` INT,
+  `IdPLU` INT,
+  `NroUnidades` INT,
+  `VlrCostoTotal` INT,
+  `VlrVentasConImpuestos` INT,
+  `VlrVentasSinImpuestos` INT,
+  `VlrIVA` INT,
+  `VlrImpoconsumo` INT,
+  `CdCanal` INT,
+  `ConsecutivoFiscal` INT,
+  PRIMARY KEY (`IdTransaccion`),
+    FOREIGN KEY (`IdCliente`) REFERENCES `cliente`(`IdCliente`)
+	FOREIGN KEY (`CdDependencia`) REFERENCES `almacen`(`CdDependencia`)
+	FOREIGN KEY (`IdPLU`) REFERENCES `producto`(`IdPLU`)
+	FOREIGN KEY (`CdCanal`) REFERENCES `canal`(`CdCanal`));
 
-CREATE TABLE `ALMACEN` (
-  `CdDependencia` Int,
-  `NombreDependencia` Nvarchar(30),
-  `IdZona` Int,
-  `NombreZona` Nvarchar(60),
-  `IdCiudad` Int,
-  `NombreCiudad` Nvarchar(60),
-  `CdCadena` Nvarchar(1),
-  `NombreCadena` Nvarchar(30),
-  PRIMARY KEY (`CdDependencia`)
-);
+CREATE TABLE `almacen` (
+  `CdDependencia` INT,
+  `NombreDependencia` NVARCHAR(30),
+  `IdZona` INT,
+  `NombreZona` NVARCHAR(60),
+  `IdCiudad` INT,
+  `NombreCiudad` NVARCHAR(60),
+  `CdCadena` NVARCHAR(1),
+  `NombreCadena` NVARCHAR(30),
+  PRIMARY KEY (`CdDependencia`));
 
-CREATE TABLE `PRODUCTO` (
-  `IdPLU` Int,
-  `CdPLU` Int,
-  `NombrePLU` Nvarchar(60),
-  `CdGEN` Int,
-  `NombreGEN` Nvarchar(60),
-  `CdUEN` Int,
-  `NombreUEN` Nvarchar(60),
-  `CdSublinea` Int,
-  `NombreSublinea` Nvarchar(60),
-  `CdCategoria` Int,
-  `NombreCategoria` Nvarchar(60),
-  `CdSubcategoria` Int,
-  `NombreSubcategoria` Nvarchar(60),
-  `CdMarca` Int,
-  `NombreMarca` Nvarchar(60),
-  PRIMARY KEY (`IdPLU`)
-);
+CREATE TABLE `producto` (
+  `IdPLU` INT,
+  `CdPLU` INT,
+  `NombrePLU` NVARCHAR(60),
+  `CdGEN` INT,
+  `NombreGEN` NVARCHAR(60),
+  `CdUEN` INT,
+  `NombreUEN` NVARCHAR(60),
+  `CdSublinea` INT,
+  `NombreSublinea` NVARCHAR(60),
+  `CdCategoria` INT,
+  `NombreCategoria` NVARCHAR(60),
+  `CdSubcategoria` INT,
+  `NombreSubcategoria` NVARCHAR(60),
+  `CdMarca` INT,
+  `NombreMarca` NVARCHAR(60),
+  PRIMARY KEY (`IdPLU`));
 
-CREATE TABLE `CANAL` (
-  `CdCanal` Int,
-  `Canal` Nvarchar(15),
-  PRIMARY KEY (`CdCanal`)
-);
+CREATE TABLE `canal`(
+  `CdCanal` INT,
+  `Canal` NVARCHAR(15),
+  PRIMARY KEY (`CdCanal`));
+  
 
-CREATE TABLE `TIPO_DOCUMENTO` (
-  `CdTipoDocIdCliente` Nvarchar(2),
-  `NombreDocumento` Nvarchar(20),
-  PRIMARY KEY (`CdTipoDocIdCliente`)
-);
-
-CREATE TABLE `CLIENTE` (
-  `IdCliente` Int,
-  `NumeroDocIdCliente` Nvarchar(18),
-  `CdTipoDocIdCliente` Nvarchar(2),
-  `NombreCompleto` Nvarchar(60),
-  `DireccionResidencia` Nvarchar(200),
-  `NombreBarrioResidencia` Nvarchar(60),
-  `CdDANEDepartamentoResidencia` Nvarchar(2),
-  `NombreDepartamento` Nvarchar(50),
-  `CdDANECiudadResidencia` Int,
-  `NombreDANECiudadResidencia` Nvarchar(60),
-  `NroTelefonoContacto` Nvarchar(16),
-  `NroTelefonoCelular` Nvarchar(20),
-  `EMail` Nvarchar(60),
-  `HabeasData` Nvarchar(1),
-  `FechaActualizaHabeasData` Date,
-  `Edad` Int,
-  `FechaCumpleanos` Date,
-  `CdGenero` Nvarchar(1),
-  `NumeroHijos` Int,
-  `NivelSocioEconomico` Nvarchar(2),
+CREATE TABLE `tipo_documento`(
+  `CdTipoDocIdCliente` NVARCHAR(2),
+  `NombreDocumento` VARCHAR(20),
+  PRIMARY KEY (`CdTipoDocIdCliente`));
+               
+               
+CREATE TABLE `cliente` (
+  `IdCliente` INT,
+  `NumeroDocIdCliente` NVARCHAR(18),
+  `CdTipoDocIdCliente` NVARCHAR(2),
+  `NombreCompleto` NVARCHAR(60),
+  `DireccionResidencia` NVARCHAR(60),
+  `NombreBarrioResidencia` NVARCHAR(60),
+  `CdDANEDepartamentoResidencia` NVARCHAR(2),
+  `NombreDepartamento` NVARCHAR(50),
+  `CdDANECiudadResidencia` INT,
+  `NombreDANECiudadResidencia` NVARCHAR(60),
+  `NroTelefonoContacto` NVARCHAR(16),
+  `NroTelefonoCelular` VARCHAR(20),
+  `EMail` NVARCHAR(60),
+  `HabeasData` NVARCHAR(1),
+  `FechaActualizaHabeasData` DATE,
+  `Edad` INT,
+  `FechaCumpleanos` DATE,
+  `CdGenero` NVARCHAR(1),
+  `NumeroHijos` INT,
+  `NivelSocioEconomico` VARCHAR(2),
+  `clientecol` VARCHAR(45),
   PRIMARY KEY (`IdCliente`)
-);
+  FOREIGN KEY(`CdTipoDocIdCliente`) REFERENCES `tipo_documento`(`CdTipoDocIdCliente`) );
