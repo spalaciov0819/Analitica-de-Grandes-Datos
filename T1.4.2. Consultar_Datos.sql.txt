@@ -1,0 +1,49 @@
+1) mongo "mongodb+srv://cluster0.r8vrj.mongodb.net/myFirstDatabase" --username siariasv 
+
+2) JSON agregado
+
+3) db.ventas.find({CdGenero: "F"}).pretty();
+
+4) db.ventas.count( { IdCliente: { $exists: true } } )
+
+5) db.ventas.find().sort({Edad:-1}).limit(1);
+
+6) db.ventas.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: "$CdGenero",
+           avgEdadGenero: { $avg: "$Edad" },
+         }
+     }
+   ]
+);
+
+
+7) db.ventas.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: "$CdGenero",
+           avgNumeroHijosGenero: { $avg: "$NumeroHijos" }
+         }
+     }
+   ]
+);
+
+8) db.ventas.aggregate(
+  [
+    {
+      $match: {
+        Edad: {
+          $gt: 50
+        }
+      }
+    },
+    {
+      $count: "Edad_scores"
+    }
+  ]
+);
